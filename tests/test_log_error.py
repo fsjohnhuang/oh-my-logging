@@ -5,7 +5,7 @@ from logging import Logger
 import logging.config
 
 from oh_my_logging.builders import LoggerBuilderFactory
-from oh_my_logging.decorators import log_stat
+from oh_my_logging.decorators import log_error
 
 
 def setup_module(module):
@@ -13,7 +13,7 @@ def setup_module(module):
     dictConfig = {
         'version': 1,
         'root': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'handlers': ['memory'],
         },
         'handlers': {
@@ -28,15 +28,15 @@ def setup_module(module):
             },
         },
     }
-    LoggerBuilderFactory.unsafe_clear()
+    LoggerBuilderFactory.unsafe_clear()    
     LoggerBuilderFactory(dictConfig)
 
 
-def test_log_stat_on_function():
-    @log_stat
-    def func(name, num):
-        return '{}.{}'.format(name, num)
+def test_logger_on_function():
+    @log_error
+    def func():
+        raise Exception('123')
+    
+    func()
 
-    ret = func('oh_my_logging', 123)
-
-    assert func.__log_stat >= 0
+    assert 1 == 2
