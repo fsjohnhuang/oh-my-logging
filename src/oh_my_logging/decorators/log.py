@@ -63,8 +63,10 @@ def log(*largs, **lkwargs):
             if targets[log.STAT] is not None:
                 inner_proxy = log_stat(inner_proxy)
 
-            if targets[log.ERROR] is not None:
+            if isinstance(targets[log.ERROR], dict):
                 inner_proxy = log_error(**targets[log.ERROR])(inner_proxy)
+            elif targets[log.ERROR] == True:
+                inner_proxy = log_error(inner_proxy)
 
             return inner_proxy
 

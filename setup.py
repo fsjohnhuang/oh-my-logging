@@ -8,11 +8,12 @@ from setuptools import setup, find_packages
 
 NAME = 'oh-my-logging'
 DESCRIPTION = 'Enhancement for logging.'
-URL = ''
+URL = 'https://github.com/fsjohnhuang/oh-my-logging'
 EMAIL = 'fsjohnhuang@hotmail.com'
 AUTHOR = 'fsjohnhuang'
 PYTHON_REQUIRES = '>=2.7'
 VERSION = '0.1.0'
+PLATFORMS=['all']
 
 REQUIRED = [
     'pyyaml',
@@ -45,10 +46,25 @@ setup(
     maintainer=AUTHOR,
     maintainer_email=EMAIL,
     url=URL,
+    platforms=PLATFORMS,
     python_requires=PYTHON_REQUIRES,
     #packages=find_packages(where='./src/oh_my_logging', include=['*']),
     package_dir={'':'src'},
     install_requires=REQUIRED,
     include_package_data=True,
     license='MIT',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Operating System :: OS Independent',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: Implementation',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Software Development :: Libraries'
+    ],
 )
