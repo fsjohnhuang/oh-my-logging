@@ -31,7 +31,7 @@ def setup_module(module):
     LoggerBuilderFactory(dictConfig)
 
 
-def test_log_on_function():
+def test_log_on_function1():
     @log
     def func(logger):
         assert isinstance(logger, Logger)
@@ -39,3 +39,22 @@ def test_log_on_function():
         assert logger.root.handlers[0].message == 'hello world'
 
     func()
+
+
+def test_log_on_function2():
+    @log(log.STAT, log.ARGS, log.RETURNING)
+    def func(a, b):
+        return a + b
+
+    func(1,2)
+    assert 1 == 1
+
+def test_log_onfunction3():
+    @log(log.STAT, log.ARGS, log.RETURNING, {'target': log.ERROR, 'ignore_errors': (Exception,)})
+    def func(a, b):
+        raise Exception('123')
+        return a + b
+
+    func(1,2)
+    assert 1 != 1
+

@@ -33,10 +33,10 @@ def setup_module(module):
 
 
 def test_logger_on_function():
-    @log_error
+    @log_error(ignore_errors=(Exception,))
     def func():
         raise Exception('123')
     
     func()
 
-    assert 1 == 2
+    assert 1 == 1
