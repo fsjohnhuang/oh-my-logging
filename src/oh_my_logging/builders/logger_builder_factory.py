@@ -59,7 +59,9 @@ class LoggerBuilderFactory(object):
 
     @classmethod
     def unsafe_clear(cls, ):
+        cls._lock.acquire()        
         cls.__instance = None
+        cls._lock.release()
 
     def builder(
             self,
