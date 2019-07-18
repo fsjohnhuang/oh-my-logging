@@ -6,18 +6,16 @@ import io
 
 from setuptools import setup, find_packages
 
+
 NAME = 'oh-my-logging'
 DESCRIPTION = 'Enhancement for logging.'
 URL = 'https://github.com/fsjohnhuang/oh-my-logging'
 EMAIL = 'fsjohnhuang@hotmail.com'
 AUTHOR = 'fsjohnhuang'
 PYTHON_REQUIRES = '>=2.7'
-VERSION = '0.1.0'
-PLATFORMS=['all']
-
-REQUIRED = [
-    'pyyaml',
-]
+VERSION = '0.1.1'
+PLATFORMS='any'
+REQUIRED = []
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,6 +24,12 @@ try:
         long_description = '\n' + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
+
+try:
+    with io.open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
+        REQUIRED = f.read().split('\n')[1:]
+except FileNotFoundError:
+    pass
 
 about = {}
 if not VERSION:
@@ -48,13 +52,13 @@ setup(
     url=URL,
     platforms=PLATFORMS,
     python_requires=PYTHON_REQUIRES,
-    #packages=find_packages(where='./src/oh_my_logging', include=['*']),
-    package_dir={'':'src'},
+    package_dir={'oh_my_logging':'src/oh_my_logging'},    
+    packages=find_packages('./src'),
     install_requires=REQUIRED,
     include_package_data=True,
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Operating System :: OS Independent',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
@@ -62,9 +66,17 @@ setup(
         'Programming Language :: Python :: Implementation',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.1',                
+        'Programming Language :: Python :: 3.2',                
+        'Programming Language :: Python :: 3.3',        
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries'
     ],
+    entry_points={
+        'console_scripts': [
+            'logging=oh_my_logging:main'
+        ]
+    },
 )
