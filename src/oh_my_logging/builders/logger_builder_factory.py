@@ -38,8 +38,12 @@ class LoggerBuilderFactory(object):
 
         dictConfig = None
         if config is None:
-            # Default config.
-            logging.config.fileConfig('logging.ini')
+            # Default config.            
+            default_logging = 'logging.ini'
+            if os.path.exists(default_logging):
+                logging.config.fileConfig(default_logging)
+        elif config in [logging.DEBUG, logging.INFO, logging.WARN, logging.ERROR, logging.CRITICAL]:
+            logging.basicConfig(level=config)
         elif isinstance(config, str):
             if clonfig.endswith('.ini'):
                 logging.config.fileConfig(config)
@@ -50,11 +54,11 @@ class LoggerBuilderFactory(object):
                 elif config.endswith('.yml') or config.endswith('.yaml'):
                     import yaml
                     with open(config, encoding='utf-8') as f:
-                        dictConfig = yaml.load(f)
+                        dictConfig = yaml.safe_load(f)
         elif isinstance(config, dict):
             dictConfig = config
 
-        if dictConfig != None:
+        if dictConfig is not None:
             logging.config.dictConfig(dictConfig)
 
     @classmethod
