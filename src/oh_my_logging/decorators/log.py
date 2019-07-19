@@ -57,6 +57,9 @@ def log(*largs, **lkwargs):
             if targets[log.ARGS] is not None:
                 inner_proxy = log_args(inner_proxy)
 
+            if targets[log.INJECT] is not None:
+                inner_proxy = logger(inner_proxy)
+
             if targets[log.RETURNING] is not None:
                 inner_proxy = log_returning(inner_proxy)
 
@@ -77,3 +80,4 @@ log.ARGS = 0
 log.RETURNING = 1
 log.STAT = 2
 log.ERROR = 3
+log.INJECT = 4

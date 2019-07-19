@@ -13,7 +13,7 @@ URL = 'https://github.com/fsjohnhuang/oh-my-logging'
 EMAIL = 'fsjohnhuang@hotmail.com'
 AUTHOR = 'fsjohnhuang'
 PYTHON_REQUIRES = '>=2.7'
-VERSION = '0.1.1'
+VERSION = '0.2.0'
 PLATFORMS='any'
 REQUIRED = []
 

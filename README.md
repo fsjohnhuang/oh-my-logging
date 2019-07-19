@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/status-unstable-orange.svg"> <img src="https://img.shields.io/badge/Python-2.7%2B-brightgreen.svg">
+
 # oh-my-logging
 An extension for logging module.
 
@@ -93,9 +95,11 @@ from oh_my_logging.decorators import log
 @log(log.ARGS, 
      log.RETURNING, 
      log.STAT, 
+     log.INJECT,
      {'target': log.ERROR, 
       'ignore_errors': (FileNotFoundException,)})
-def myfile(name):
+def myfile(name, logger):
+    logger.info('test')
     raise FileNotFoundException(name)
 
 myfile('123')
