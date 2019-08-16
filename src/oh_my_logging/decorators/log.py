@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import (unicode_literals,
-                        print_function)
-import logging
-from functools import wraps
-if 'reduce' not in vars():
-    from functools import reduce
+from __future__ import print_function, unicode_literals
 
-from .logger import logger
 from .log_args import log_args
+from .log_error import log_error
 from .log_returning import log_returning
 from .log_stat import log_stat
-from .log_error import log_error
+from .logger import logger
+
+if 'reduce' not in vars():
+    from functools import reduce
 
 
 def log(*largs, **lkwargs):
@@ -42,14 +40,15 @@ def log(*largs, **lkwargs):
         k = larg.get('target') if isinstance(larg, dict) else larg
         if isinstance(larg, dict):
             items = filter(lambda item: item[0] != 'target', larg.items())
+
             def reducing(accu, item):
                 accu.setdefault(*item)
                 return accu
-            
+
             v = reduce(reducing, items, {})
         else:
             v = True
-            
+
         targets[k] = v
 
         def intermediate(func):
